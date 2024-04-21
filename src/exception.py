@@ -1,7 +1,7 @@
 import sys
-import logging
-
-
+sys.path.append('D:/mlprojects')  # Adjust the path to match the location of your src directory
+from src.logger import logging
+from src.logger import logging
 class CustomException(Exception):
     
 

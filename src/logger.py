@@ -6,9 +6,9 @@ It creates a log file with a timestamp and sets the logging level to INFO.
 The log file includes details like timestamp, log level, module name, function name, line number, and the actual message.
 """
 
+from datetime import datetime
 import logging
 import os
-from datetime import datetime
 
 # Define the format string for the log messages
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(module)s - %(funcName)s - %(lineno)d - %(message)s'
