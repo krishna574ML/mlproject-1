@@ -5,6 +5,7 @@ from src.logger import logging  # Assuming a logging module for structured loggi
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
+from src.components.data_transformation import DataTransformation, DataTransformationConfig
 from dataclasses import dataclass
 
 # Data Ingestion Configuration (Optional)
@@ -31,7 +32,7 @@ class DataIngestion:
             config (DataIngestionConfig, optional): Configuration object for data paths.
                 Defaults to None, using default paths defined in the class.
         """
-        self.config = config or DataIngestionConfig()  # Use provided config or defaults
+        self.config = DataIngestionConfig()  # Use provided config or defaults
 
     def initiate_data_ingestion(self):
         """
@@ -50,6 +51,8 @@ class DataIngestion:
             # Create directories for output data (if needed)
             os.makedirs(os.path.dirname(self.config.train_data_path), exist_ok=True)
 
+            df.to_csv(self.config.raw_data_path , index=True, header=True)
+
             # Split data into training and testing sets
             train_set, test_set = train_test_split(df, test_size=0.33, random_state=42)
             logging.info("Train/test split completed.")
@@ -65,11 +68,12 @@ class DataIngestion:
 
         except Exception as e:
             error_msg = CustomException.error_message_detail(str(e))
-            logging.error(error_msg)  # Log error messages with a higher severity level (error)
+            logging.info(error_msg)  # Log error messages with a higher severity level (error)
             raise CustomException(error_msg)  # Re-raise the custom exception for clearer error handling
 
 if __name__ == '__main__':
     data_ingester = DataIngestion()
-    train_path, test_path = data_ingester.initiate_data_ingestion()
-    print(f"Training data path: {train_path}")
-    print(f"Testing data path: {test_path}")
+    train_data, test_data = data_ingester.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data , test_data)
