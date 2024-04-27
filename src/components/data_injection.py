@@ -44,7 +44,9 @@ class DataIngection:
         except Exception as e:
             error_msg = CustomException.error_message_detail(str(e))
             logging.info(error_msg)
-
+if __name__ == '__main__':
+    obj = DataIngection()
+    obj.initiate_data_intiate()
             
 
     
