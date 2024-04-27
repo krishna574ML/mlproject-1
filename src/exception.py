@@ -28,9 +28,9 @@ class CustomException(Exception):
                 provide more context for debugging purposes.
         """
 
-        super().__init__(error_message)
-        self.error_message = error_message
-        self.error_details = error_details
+        super().__init__(error_message)  # Call the superclass's __init__ method to initialize the exception with the given error message
+        self.error_message = error_message  # Store the error message for later reference
+        self.error_details = error_details  # Store additional error details for debugging purposes, defaults to sys.exc_info()
 
     
         
@@ -48,7 +48,7 @@ class CustomException(Exception):
 
         return self.error_message
     
-    def error_message_detail(error_message, error ,error_details=sys.exc_info()):
+    def error_message_detail(error_message,error_details=sys.exc_info()):
         """
         This function creates a detailed error message for easier troubleshooting.
 
@@ -64,7 +64,6 @@ class CustomException(Exception):
                 - Line number where the error occurred
                 - The actual error message
         """
-
         # Unpack the error details (ignore the first two return values from exc_info())
         _, _, exc_tb = error_details
 
@@ -76,7 +75,14 @@ class CustomException(Exception):
         return f"Error: {type(error_message).__name__} occurred in '{file_name}' on line {line_number}.\n" \
                f"Error message: {str(error_message)}"
 
-    
+if __name__ == "__main__":
 
-
+    try:
+        a=1/0
+    except Exception as e:
+        logging.info('Divide by zero error')
+        error_msg = CustomException.error_message_detail(str(e))
+        print(error_msg)
+        #raise CustomException(str(e))
+        
 
