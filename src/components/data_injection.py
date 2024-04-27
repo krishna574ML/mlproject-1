@@ -11,6 +11,7 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionConfig:
+    # creating new folder artifact and adding the files
     train_data_path :str = os.path.join('artifacts' , 'train.cv')
     test_data_path :str = os.path.join('artifacts' , 'test.cv')
     raw_data_path:str = os.path.join('artifacts' , 'data.cv')
