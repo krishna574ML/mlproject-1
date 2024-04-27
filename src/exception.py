@@ -75,14 +75,5 @@ class CustomException(Exception):
         return f"Error: {type(error_message).__name__} occurred in '{file_name}' on line {line_number}.\n" \
                f"Error message: {str(error_message)}"
 
-if __name__ == "__main__":
-
-    try:
-        a=1/0
-    except Exception as e:
-        logging.info('Divide by zero error')
-        error_msg = CustomException.error_message_detail(str(e))
-        print(error_msg)
-        #raise CustomException(str(e))
         
 
