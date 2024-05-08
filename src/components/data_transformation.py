@@ -86,6 +86,7 @@ class DataTransformation:
             save_object(file_path=self.data_transformation_config.preprocessor_obj_path, obj=preprocessor_obj)
 
             return train_data, test_data, self.data_transformation_config.preprocessor_obj_path
+        
         except Exception as e:
             error_msg = CustomException.error_message_detail(str(e))
             logging.error(error_msg)  # Log error messages with a higher severity level (error)
